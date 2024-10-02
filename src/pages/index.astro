@@ -1,9 +1,9 @@
 ---
 import { actions } from "astro:actions";
-import Layout from "../layouts/Layout.astro";
+import LayoutTransition from "../layouts/LayoutTransition.astro";
 ---
 
-<Layout title="Welcome to Astro.">
+<LayoutTransition title="Welcome to Astro.">
     <main>
         <form id="loginOAuth" action={actions.signinOAuth} method="POST">
             <button value="google" name="provider" type="submit">
@@ -11,7 +11,7 @@ import Layout from "../layouts/Layout.astro";
             </button>
         </form>
     </main>
-</Layout>
+</LayoutTransition>
 
 <script>
     import { actions } from "astro:actions";

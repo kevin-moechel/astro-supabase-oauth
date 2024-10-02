@@ -1,0 +1,43 @@
+---
+import { actions } from "astro:actions";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Welcome to Astro.">
+    <main>
+        <form id="loginOAuth" action={actions.signinOAuth} method="POST">
+            <button value="google" name="provider" type="submit">
+                Login with Google
+            </button>
+        </form>
+    </main>
+</Layout>
+
+<script>
+    import { actions } from "astro:actions";
+    import { navigate } from "astro:transitions/client";
+
+    const formOAuth = document.getElementById("loginOAuth") as HTMLFormElement;
+    if (formOAuth) {
+        formOAuth.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(formOAuth);
+
+            formData.append(
+                "provider",
+                e.submitter?.getAttribute("value") as string
+            );
+
+            const { data, error } = await actions.signinOAuth(formData);
+
+            if (error) {
+                console.log(error);
+            }
+
+            if (data) {
+                navigate(data);
+            }
+        });
+    }
+</script>

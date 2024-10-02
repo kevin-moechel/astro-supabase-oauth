@@ -1,8 +1,8 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import LayoutNoTransition from "../layouts/LayoutNoTransition.astro";
 ---
 
-<Layout title="Welcome to Astro.">
+<LayoutNoTransition title="Welcome to Astro.">
     <main>
         <form id="loginOAuth" action="/api/auth/signin" method="post">
             <button value="google" name="provider" type="submit">
@@ -10,4 +10,4 @@ import Layout from "../layouts/Layout.astro";
             </button>
         </form>
     </main>
-</Layout>
+</LayoutNoTransition>

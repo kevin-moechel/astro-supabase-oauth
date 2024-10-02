@@ -1,5 +1,9 @@
 import type { Provider } from "@supabase/supabase-js";
-import { ActionError, defineAction } from "astro:actions";
+import {
+    ActionError,
+    defineAction,
+    type ActionAPIContext,
+} from "astro:actions";
 import { z } from "astro:schema";
 import { supabase } from "../lib/supabase";
 
@@ -27,6 +31,15 @@ export const server = {
             }
             console.log(data.url);
             return data.url;
+        },
+    }),
+
+    signOut: defineAction({
+        accept: "form",
+        handler: async ({}, ctx: ActionAPIContext) => {
+            ctx.cookies.delete("sb-access-token", { path: "/" });
+            ctx.cookies.delete("sb-refresh-token", { path: "/" });
+            supabase.auth.signOut();
         },
     }),
 };

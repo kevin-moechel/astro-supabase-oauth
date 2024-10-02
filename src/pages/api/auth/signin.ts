@@ -2,7 +2,7 @@ import type { Provider } from "@supabase/supabase-js";
 import type { APIRoute } from "astro";
 import { supabase } from "../../../lib/supabase";
 
-export const POST: APIRoute = async ({ request, cookies, redirect }) => {
+export const POST: APIRoute = async ({ request, redirect }) => {
     const formData = await request.formData();
     const provider = formData.get("provider")?.toString();
 
@@ -12,7 +12,7 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
             options: {
                 redirectTo: import.meta.env.DEV
                     ? "http://localhost:4321/api/auth/callback"
-                    : "https://astro-supabase-auth.vercel.app/api/auth/callback",
+                    : import.meta.env.SUPABASE_AUTH_CALLBACK_URL,
             },
         });
 
